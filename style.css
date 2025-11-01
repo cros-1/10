@@ -1,0 +1,75 @@
+@import url('fonts.css');
+:root{
+  --primary:#1f3bff; --accent:#a7b8ff; --bg:#0a1024; --text:#eaf0ff; --muted:#aab6e6; --ring:#ffffff22;
+  --card1:#0f1738ee; --card2:#0f1738cc; --font:'Tajawal', system-ui, Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+html[dir=rtl]{scrollbar-gutter:stable}
+body{margin:0;font-family:var(--font);background:radial-gradient(1200px 700px at -20% -10%, #112055 0, #0a1024 55%);color:var(--text)}
+.wrap{max-width:1220px;margin:0 auto;padding:0 16px}
+.hidden{display:none!important}
+/* تموجات */
+.bg-waves{position:fixed;inset:-10% -10% auto -10%;height:60vh;z-index:-1;pointer-events:none;filter:blur(10px) saturate(120%)}
+.wave{position:absolute;left:0;right:0;height:200px;opacity:.55;background:linear-gradient(90deg,#0d1a55,#2542c7);transform:skewY(-6deg) translateY(0);animation:float 12s ease-in-out infinite alternate}
+.wave.w2{top:120px;opacity:.45;animation-duration:16s;background:linear-gradient(90deg,#14256e,#1c3190)}
+.wave.w3{top:240px;opacity:.35;animation-duration:20s;background:linear-gradient(90deg,#1c3190,#2542c7)}
+@keyframes float{from{transform:skewY(-6deg) translateY(0)}to{transform:skewY(-6deg) translateY(22px)}}
+/* شريط علوي */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:center;gap:12px;padding:18px;background:linear-gradient(180deg,#0d1433cc,#0d143388);backdrop-filter:blur(14px);border-bottom:1px solid var(--ring)}
+.top-actions{position:absolute;right:12px;display:flex;gap:8px}
+.top-actions a,.btn,.chip{border:1px solid var(--ring);background:linear-gradient(180deg,#18224e,#111a3d);border-radius:12px;padding:10px 14px;color:var(--text);text-decoration:none;cursor:pointer;box-shadow:0 12px 18px #0008}
+.modeBtn{border:1px solid var(--ring);padding:10px 14px;border-radius:12px;background:#0e1636;color:#eaf0ff;cursor:pointer}
+.brand3d{font-weight:900;letter-spacing:.2px;font-size:clamp(30px,4.4vw,58px);
+  background:linear-gradient(120deg,#dbe4ff 0%,#9bb8ff 30%,#e6eeff 50%,#b4c8ff 70%,#ffffff 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;position:relative;filter:drop-shadow(0 14px 26px #0008)}
+.brand3d::before{content:attr(data-title);position:absolute;inset:0;transform:translate(0,10px) scale(1.02);z-index:-1;color:transparent;text-shadow:0 22px 36px #000c}
+.brand3d::after{content:"";position:absolute;left:0;right:0;top:56%;height:26px;background:linear-gradient(90deg,#ffffff55,transparent);filter:blur(8px);opacity:.6}
+/* بطاقات */
+.card{background:linear-gradient(180deg,var(--card1),var(--card2));border:1px solid var(--ring);border-radius:18px;padding:18px;box-shadow:0 26px 56px #0009;margin:12px 0;overflow:hidden}
+h3{margin:.2rem 0 12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+.inp, textarea, select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--ring);background:#0b1230;color:#eaf0ff}
+.note{color:var(--muted);font-size:14px}
+.footer{text-align:center;padding:22px;color:var(--muted)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+/* روابط سريعة */
+.quick a{display:flex;gap:12px;align-items:center;padding:16px;border-radius:18px;border:1px solid var(--ring);
+  background:linear-gradient(180deg,#111a3d,#0c1533);box-shadow:0 18px 36px #000a;text-decoration:none;color:#eaf0ff;transition:.2s}
+.quick a:hover{transform:translateY(-4px) scale(1.01)}
+.ico{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  background:conic-gradient(from 220deg,#2542c7,#9fb5ff,#2542c7);box-shadow:0 14px 26px #000c;color:#fff;font-size:26px}
+/* لوحات الشرف */
+#honorsContainer{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:980px){#honorsContainer{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){#honorsContainer{grid-template-columns:1fr}}
+.honor{border-radius:20px;padding:22px;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;min-height:220px}
+.honor .sheen{content:"";position:absolute;inset:-20%;transform:skewX(-20deg) translateX(-120%);background:linear-gradient(90deg,transparent,#ffffff33,transparent);animation:shimmer 8s linear infinite}
+@keyframes shimmer{from{transform:skewX(-20deg) translateX(-120%)}to{transform:skewX(-20deg) translateX(120%)}}
+.h-title{font-weight:900;font-size:21px;margin:.25rem 0}
+.h-meta{color:#d0dbff;font-size:13px}
+.h-names{white-space:pre-line;line-height:1.7}
+.h-icon{width:52px;height:52px;vertical-align:-8px}
+.glow{box-shadow:0 20px 50px #000a}
+/* أنماط أساسية */
+.honor--royal{background:linear-gradient(160deg,#0f1a4a,#1a2d7a);border:1px solid #2f43a8}
+.honor--gold{background:linear-gradient(140deg,#4f3a00,#8c6a0d);border:1px solid #caa43c}
+.honor--silver{background:linear-gradient(140deg,#30343a,#4a5461);border:1px solid #aab6c8}
+.honor--platinum{background:linear-gradient(160deg,#2a2f36,#515a65);border:1px solid #b9c3d3}
+.honor--obsidian{background:linear-gradient(180deg,#0b0f1f,#141a33);border:1px solid #222a44}
+/* أنماط إضافية */
+.honor--panorama{background:linear-gradient(135deg,#1b2aa6,#2542c7,#7aa9ff);border:1px solid #7aa9ff55}
+.honor--mesh{background:radial-gradient(40% 60% at 20% 30%,#1b2aa6aa,transparent),radial-gradient(60% 40% at 80% 70%,#7aa9ffaa,transparent),#0a1024;border:1px solid #3a4fb3}
+.honor--glass{background:linear-gradient(180deg,#ffffff0f,#ffffff05);backdrop-filter:blur(8px);border:1px solid #ffffff2a}
+.honor--neon{background:linear-gradient(160deg,#0a1024,#0b0f2b);box-shadow:0 0 18px #6cf inset, 0 0 34px #6cf33;border:1px solid #6cf99}
+/* شريط الإعلانات */
+.ticker{border:1px solid var(--ring);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#111a3d,#0c1533);margin-top:8px}
+.ticker ul{display:flex;gap:34px;list-style:none;padding:12px 16px;margin:0;animation:tick 24s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-60%)}}
+.ticker:hover ul{animation-play-state:paused}
+/* أوضاع فاتح/داكن */
+html[data-theme='light'] body{background:radial-gradient(1200px 700px at -20% -10%, #dfe6ff 0, #eef2ff 55%);color:#0b122b}
+html[data-theme='light'] .card{background:linear-gradient(180deg,#ffffffee,#f6f8ff);border-color:#dbe4ff}
+html[data-theme='light'] .quick a{background:linear-gradient(180deg,#f7f8ff,#eef2ff)}

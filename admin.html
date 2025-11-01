@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة التحكم</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-waves"><div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div></div>
+  <div class="topbar">
+    <div class="hero"><div class="brand3d">لوحة التحكم</div></div>
+    <div class="top-actions"><a href="index.html">الواجهة</a></div>
+  </div>
+  <main class="wrap">
+    <div class="card" id="gate">
+      <h3>تسجيل الدخول</h3>
+      <div class="row"><input id="email" class="inp" type="email" placeholder="البريد"><input id="pwd" class="inp" type="password" placeholder="كلمة المرور"><button id="loginBtn" class="btn">دخول</button></div>
+      <div id="msg" class="note"></div>
+    </div>
+
+    <div id="panel" class="hidden">
+      <div class="card">
+        <h3>الثيمات والألوان والخط (معاينة فورية)</h3>
+        <div class="row">
+          <button id="toggleMode" class="modeBtn">تبديل النمط</button>
+          <select id="themePick" class="inp" style="max-width:260px"></select>
+          <label class="lbl-small">أساسي</label><input id="primary" type="color" class="inp" value="#1f3bff" style="max-width:120px">
+          <label class="lbl-small">مساعد</label><input id="accent" type="color" class="inp" value="#a7b8ff" style="max-width:120px">
+          <label class="lbl-small">الخط</label>
+          <select id="fontPick" class="inp" style="max-width:260px">
+            <option>Tajawal</option><option>Cairo</option><option>El Messiri</option><option>Changa</option><option>Harmattan</option>
+            <option>IBM Plex Sans Arabic</option><option>Almarai</option><option>Amiri</option><option>Baloo Bhaijaan 2</option><option>Reem Kufi</option>
+            <option>Markazi Text</option><option>Mada</option><option>Lalezar</option><option>Scheherazade New</option><option>Vazirmatn</option>
+            <option>Noto Kufi Arabic</option><option>Noto Naskh Arabic</option><option>Readex Pro</option><option>Katibeh</option><option>Mirza</option>
+          </select>
+          <button id="saveTheme" class="btn">حفظ الثيم</button>
+          <button id="resetTheme" class="btn">استرجاع الإعدادات الافتراضية</button>
+          <button id="exportBtn" class="btn">تصدير الإعدادات</button>
+          <input id="importFile" type="file" accept="application/json" class="inp" style="max-width:280px">
+          <button id="importBtn" class="btn">استيراد</button>
+        </div>
+      </div>
+
+      <!-- لوحات الشرف -->
+      <div class="card">
+        <h3>إدارة لوحات الشرف (معاينة) — أنماط بانورامية/شبكية/زجاجية/نيون</h3>
+        <div class="row">
+          <input id="hId" class="inp" placeholder="(تحرير) المعرّف" disabled>
+          <input id="hCat" class="inp" placeholder="العنوان (أفضل فرقة / أفضل زمن استجابة ...)">
+          <input id="hCenter" class="inp" placeholder="المركز (اختياري)">
+          <select id="hIcon" class="inp">
+            <option value="crown">تاج</option><option value="shield">درع</option><option value="medal">ميدالية</option><option value="star">نجمة</option>
+            <option value="diamond">ماسة</option><option value="trophy">كأس</option><option value="cup">Cup</option><option value="laurel">غار</option><option value="shieldStar">درع نجمي</option>
+          </select>
+          <select id="hStyle" class="inp">
+            <option>royal</option><option>gold</option><option>silver</option><option>platinum</option><option>obsidian</option>
+            <option>panorama</option><option>mesh</option><option>glass</option><option>neon</option>
+          </select>
+        </div>
+        <div class="row">
+          <input id="hTitle" class="inp" placeholder="المسمّى (مثال: فرقة الصقور)">
+          <textarea id="hMembers" class="inp" rows="4" placeholder="الأسماء (كل اسم في سطر)"></textarea>
+        </div>
+        <div class="row">
+          <input id="hImg" type="file" class="inp" accept="image/*">
+          <button id="previewHonor" class="btn">معاينة</button>
+          <button id="saveHonor" class="btn">حفظ اللوحة</button>
+          <button id="clearHonor" class="btn">تفريغ</button>
+        </div>
+        <div id="honorPreview" class="card hidden"></div>
+        <div id="honorList" class="note"></div>
+      </div>
+
+      <!-- الإعلانات -->
+      <div class="card">
+        <h3>الإعلانات</h3>
+        <div class="row">
+          <input id="adId" class="inp" placeholder="(تحرير) المعرّف)" disabled>
+          <input id="adTitle" class="inp" placeholder="عنوان">
+          <input id="adText" class="inp" placeholder="نص الإعلان">
+          <button id="saveAd" class="btn">حفظ / نشر</button>
+        </div>
+        <div id="adsList" class="note"></div>
+      </div>
+
+      <!-- الروابط السريعة -->
+      <div class="card">
+        <h3>الروابط السريعة</h3>
+        <div class="row">
+          <input id="lId" class="inp" placeholder="(تحرير) المعرّف" disabled>
+          <input id="lName" class="inp" placeholder="اسم الزر">
+          <input id="lUrl" class="inp" placeholder="https:// الرابط">
+          <select id="lIcon" class="inp" style="max-width:180px">
+            <option value="sheet">📊 Sheet</option><option value="form">📝 Form</option><option value="swap">🔁 Swap</option>
+            <option value="check">✅ Check</option><option value="ideas">💡 Ideas</option><option value="ads">📢 Ads</option>
+            <option value="people">👥 People</option><option value="gear">⚙️ Gear</option><option value="time">⏱️ Time</option>
+            <option value="doc">📄 Doc</option><option value="star">⭐ Star</option><option value="shield">🛡️ Shield</option>
+            <option value="crown">👑 Crown</option><option value="mail">✉️ Mail</option><option value="chart">📈 Chart</option>
+            <option value="bell">🔔 Bell</option><option value="target">🎯 Target</option><option value="folder">🗂️ Folder</option>
+            <option value="clip">🔗 Link</option><option value="home">🏠 Home</option><option value="plane">✈️ Plane</option>
+            <option value="hospital">🏥 Hospital</option><option value="car">🚓 Patrol</option>
+          </select>
+          <input id="lOrder" class="inp" type="number" min="1" value="1" style="max-width:120px" placeholder="الترتيب">
+          <button id="saveLink" class="btn">حفظ</button>
+        </div>
+        <div id="linksList" class="note"></div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">منصة قطاع عمليات وسط الرياض</footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getDatabase, ref, push, set, update, remove, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getStorage, ref as sref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+    import { firebaseConfig } from "./firebase-config.js";
+    import { THEMES, applyTheme } from "./themes.js";
+    import { iconSVG } from "./icons.js";
+
+    const app=initializeApp(firebaseConfig); const auth=getAuth(app); const db=getDatabase(app); const st=getStorage(app);
+    const $=s=>document.querySelector(s);
+    const out=(m,ok=true)=>{const el=$('#msg'); el.textContent=m; el.style.color=ok?'var(--muted)':'#ff6b6b'};
+    const now=()=>new Date().toISOString().slice(0,16).replace('T',' ');
+    const qAll=p=>get(child(ref(db),p)).then(s=>s.exists()?s.val():null).catch(_=>null);
+
+    // مزامنة الثيم مع الإعدادات
+    onValue(ref(db,'settings/theme'), s=>{
+      if(!s.exists())return;
+      const v=s.val();
+      document.documentElement.dataset.theme = v.mode||localStorage.getItem('themeMode')||'dark';
+      document.documentElement.style.setProperty('--font', `'${v.font||'Tajawal'}', system-ui, Arial`);
+      document.documentElement.style.setProperty('--primary', v.primary||'#1f3bff');
+      document.documentElement.style.setProperty('--accent', v.accent||'#a7b8ff');
+      $('#primary').value=v.primary||'#1f3bff'; $('#accent').value=v.accent||'#a7b8ff';
+      // معاينة فورية
+      applyTheme({primary:v.primary||'#1f3bff',accent:v.accent||'#a7b8ff',bg:'#0a1024'});
+    });
+
+    // تبديل النمط محليًا
+    $('#toggleMode').onclick=()=>{ const cur = document.documentElement.dataset.theme==='light'?'dark':'light'; document.documentElement.dataset.theme=cur; localStorage.setItem('themeMode',cur); };
+
+    // تحميل قائمة الثيمات
+    const tp=$('#themePick'); THEMES.forEach((t,i)=>{const o=document.createElement('option'); o.value=i; o.textContent=t.name; tp.appendChild(o)});
+
+    // حفظ/استرجاع/تصدير/استيراد
+    $('#saveTheme').onclick=async()=>{
+      const pick=THEMES[tp.value]||THEMES[0];
+      const font = $('#fontPick').value || 'Tajawal';
+      const payload={
+        mode:document.documentElement.dataset.theme||'dark',
+        primary:$('#primary').value||pick.primary,
+        accent:$('#accent').value||pick.accent,
+        font:font
+      };
+      await set(ref(db,'settings/theme'),payload);
+      document.documentElement.style.setProperty('--font', `'${font}', system-ui, Arial`);
+      applyTheme({primary:payload.primary,accent:payload.accent,bg:'#0a1024'});
+      out('تم حفظ الثيم');
+    };
+    $('#resetTheme').onclick=async()=>{
+      const payload={mode:'dark',primary:'#1f3bff',accent:'#a7b8ff',font:'Tajawal'};
+      await set(ref(db,'settings/theme'),payload);
+      localStorage.setItem('themeMode','dark');
+      document.documentElement.dataset.theme='dark';
+      document.documentElement.style.setProperty('--font', `'Tajawal', system-ui, Arial`);
+      applyTheme({primary:'#1f3bff',accent:'#a7b8ff',bg:'#0a1024'});
+      out('تم استرجاع الإعدادات الافتراضية');
+    };
+    $('#exportBtn').onclick=async()=>{
+      const data={
+        settings: await qAll('settings')||{},
+        links: await qAll('links')||{},
+        ads: await qAll('ads')||{},
+        honor: await qAll('honor')||{}
+      };
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='portal-backup.json'; a.click(); URL.revokeObjectURL(a.href);
+      out('تم تصدير الإعدادات بنجاح');
+    };
+    $('#importBtn').onclick=async()=>{
+      const f=$('#importFile').files[0]; if(!f) return out('اختر ملف JSON أولا',false);
+      const txt=await f.text(); let data={}; try{data=JSON.parse(txt)}catch(e){return out('ملف غير صالح',false)}
+      if(data.settings) await set(ref(db,'settings'),data.settings);
+      if(data.links) await set(ref(db,'links'),data.links);
+      if(data.ads) await set(ref(db,'ads'),data.ads);
+      if(data.honor) await set(ref(db,'honor'),data.honor);
+      out('تم الاستيراد بنجاح، حدّث الصفحة لرؤية التغييرات');
+    };
+
+    // دخول
+    $('#loginBtn').onclick=async()=>{try{await signInWithEmailAndPassword(auth,$('#email').value.trim(),$('#pwd').value.trim())}catch(e){out('فشل الدخول: '+e.message,false)}};
+    onAuthStateChanged(auth, user=>{ if(user){$('#gate').classList.add('hidden');$('#panel').classList.remove('hidden');refreshAll()} else{$('#panel').classList.add('hidden');$('#gate').classList.remove('hidden')} });
+
+    // لوحات الشرف
+    function honorHTML(h){
+      const map={'royal':'honor honor--royal glow','gold':'honor honor--gold glow','silver':'honor honor--silver glow','platinum':'honor honor--platinum glow','obsidian':'honor honor--obsidian glow','panorama':'honor honor--panorama glow','mesh':'honor honor--mesh glow','glass':'honor honor--glass glow','neon':'honor honor--neon glow'};
+      const cls=map[h.style||'royal']||map.royal;
+      const img = h.imgURL ? `<img src="${h.imgURL}" style="width:64px;height:64px;border-radius:12px;object-fit:cover;border:1px solid #ffffff22">` : '';
+      return `<div class="${cls}"><div class="sheen"></div>` +
+        (h.iconName?`${iconSVG(h.iconName)}`:'') + img +
+        `<div class="h-title">${h.title||''}</div><div class="h-meta">${h.category||''}${h.center?(' • المركز: '+h.center):''}</div>
+        <div class="h-names">${(h.members||'').replaceAll('\n','<br>')}</div></div>`;
+    }
+    $('#previewHonor').onclick=()=>{
+      const payload={category:$('#hCat').value.trim(), center:$('#hCenter').value.trim(), iconName:$('#hIcon').value, style:$('#hStyle').value, title:$('#hTitle').value.trim(), members:$('#hMembers').value.trim()};
+      const box=$('#honorPreview'); box.classList.remove('hidden'); box.innerHTML=honorHTML(payload);
+    };
+    async function refreshHonor(){
+      const data=await qAll('honor')||{}; const list=Object.entries(data).map(([id,v])=>({id,...v})).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+      $('#honorList').innerHTML=list.map(it=>`<div class="card">
+        <div><b>${it.title||''}</b> — ${it.category||''} ${it.center?(' — المركز: '+it.center):''}</div>
+        ${it.imgURL?`<img src="${it.imgURL}" style="width:64px;height:64px;border-radius:10px;border:1px solid #ffffff22;object-fit:cover">`:''}
+        <div class="note" style="white-space:pre-line">${it.members||''}</div>
+        <div class="row"><button class="btn" data-edit="${it.id}">تعديل</button><button class="btn" data-del="${it.id}">حذف</button></div>
+      </div>`).join('');
+      document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{
+        const it=list.find(x=>x.id===b.dataset.edit);
+        hId.value=it.id; hCat.value=it.category||''; hCenter.value=it.center||'';
+        hIcon.value=it.iconName||'trophy'; hStyle.value=it.style||'royal';
+        hTitle.value=it.title||''; hMembers.value=it.members||'';
+      });
+      document.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{if(!confirm('تأكيد الحذف؟'))return; await remove(ref(db,'honor/'+b.dataset.del)); out('تم الحذف'); refreshHonor()});
+    }
+    $('#clearHonor').onclick=()=>{$('#hId').value=$('#hCat').value=$('#hCenter').value=$('#hTitle').value=$('#hMembers').value=''; $('#hImg').value=''; $('#honorPreview').classList.add('hidden')};
+    $('#saveHonor').onclick=async()=>{
+      const id=($('#hId').value||'').trim();
+      const payload={category:$('#hCat').value.trim(),center:$('#hCenter').value.trim(),iconName:$('#hIcon').value,style:$('#hStyle').value,title:$('#hTitle').value.trim(),members:$('#hMembers').value.trim(),date:now()};
+      const f=$('#hImg').files[0];
+      if(f){const upRef=sref(st,'honors/'+Date.now()+'_'+f.name); await uploadBytes(upRef,f); payload.imgURL=await getDownloadURL(upRef);}
+      if(!payload.category||!payload.title) return out('أدخل العنوان والمسمّى',false);
+      if(id) await update(ref(db,'honor/'+id),payload); else await set(push(ref(db,'honor')),payload);
+      out('تم الحفظ'); refreshHonor(); $('#clearHonor').click();
+    };
+
+    // الإعلانات
+    async function refreshAds(){
+      const data=await qAll('ads')||{}; const list=Object.entries(data).map(([id,v])=>({id,...v})).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+      $('#adsList').innerHTML=list.map(it=>`<div class="card">
+        <div><b>${it.title||''}</b></div><div class="note">${it.desc||''}</div>
+        <div class="row"><button class="btn" data-ae="${it.id}">تعديل</button><button class="btn" data-ad="${it.id}">حذف</button></div>
+      </div>`).join('');
+      document.querySelectorAll('[data-ae]').forEach(b=>b.onclick=()=>{
+        const it=list.find(x=>x.id===b.dataset.ae);
+        adId.value=it.id; adTitle.value=it.title||''; adText.value=it.desc||'';
+      });
+      document.querySelectorAll('[data-ad]').forEach(b=>b.onclick=async()=>{
+        if(!confirm('تأكيد الحذف؟'))return; await remove(ref(db,'ads/'+b.dataset.ad)); out('تم حذف الإعلان'); refreshAds()
+      });
+    }
+    $('#saveAd').onclick=async()=>{
+      const id=($('#adId').value||'').trim();
+      const payload={title:$('#adTitle').value.trim(),desc:$('#adText').value.trim(),date:now()};
+      if(!payload.title||!payload.desc) return out('أدخل عنوان ونص',false);
+      if(id) await update(ref(db,'ads/'+id),payload); else await set(push(ref(db,'ads')),payload);
+      out('تم الحفظ'); refreshAds(); $('#adId').value=$('#adTitle').value=$('#adText').value='';
+    };
+
+    // الروابط
+    async function refreshLinks(){
+      const data=await qAll('links')||{}; const list=Object.entries(data).map(([id,v])=>({id,...v})).sort((a,b)=>(a.order||999)-(b.order||999));
+      $('#linksList').innerHTML=list.map(it=>`<div class="card">
+        <div><b>${it.name||''}</b> — <span class="note">${it.url||''}</span> — <span>${it.icon?(''+it.icon):''}</span> — ترتيب: ${it.order||''}</div>
+        <div class="row"><button class="btn" data-le="${it.id}">تعديل</button><button class="btn" data-ld="${it.id}">حذف</button></div>
+      </div>`).join('');
+      document.querySelectorAll('[data-le]').forEach(b=>b.onclick=()=>{
+        const it=list.find(x=>x.id===b.dataset.le);
+        lId.value=it.id; lName.value=it.name||''; lUrl.value=it.url||''; lIcon.value=it.icon||'link'; lOrder.value=it.order||1;
+      });
+      document.querySelectorAll('[data-ld]').forEach(b=>b.onclick=async()=>{
+        if(!confirm('تأكيد الحذف؟'))return; await remove(ref(db,'links/'+b.dataset.ld)); out('تم حذف الرابط'); refreshLinks()
+      });
+    }
+    $('#saveLink').onclick=async()=>{
+      const id=($('#lId').value||'').trim();
+      const payload={name:$('#lName').value.trim(),url:$('#lUrl').value.trim(),icon:$('#lIcon').value,order:Number($('#lOrder').value)||1,date:now()};
+      if(!payload.name||!payload.url) return out('أدخل الاسم والرابط',false);
+      if(id) await update(ref(db,'links/'+id),payload); else await set(push(ref(db,'links')),payload);
+      out('تم الحفظ'); refreshLinks(); $('#lId').value=$('#lName').value=$('#lUrl').value=''; $('#lOrder').value='1';
+    };
+
+    async function refreshAll(){ await Promise.all([refreshHonor(),refreshAds(),refreshLinks()]); }
+  </script>
+</body>
+</html>

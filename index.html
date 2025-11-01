@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>قطاع عمليات وسط الرياض</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module">
+    const savedMode = localStorage.getItem('themeMode')||'dark';
+    document.documentElement.dataset.theme = savedMode;
+  </script>
+</head>
+<body>
+  <div class="bg-waves"><div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div></div>
+  <div class="topbar">
+    <div class="hero"><div class="brand3d" data-title="قطاع عمليات وسط الرياض">قطاع عمليات وسط الرياض</div></div>
+    <div class="top-actions">
+      <button id="toggleMode" class="modeBtn">تبديل النمط</button>
+      <a href="admin.html">لوحة التحكم</a>
+    </div>
+  </div>
+  <main class="wrap">
+    <section id="honorsSec" class="card hidden"><div id="honorsContainer"></div></section>
+    <section class="card"><div id="quickLinks" class="grid quick"></div></section>
+    <section id="adsSec" class="card hidden"><div class="ticker"><ul id="adsTicker"></ul></div></section>
+  </main>
+  <footer class="footer">منصة قطاع عمليات وسط الرياض</footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, onValue, set, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { firebaseConfig } from "./firebase-config.js";
+    import { iconSVG, linkIcon } from "./icons.js";
+
+    const app=initializeApp(firebaseConfig); const db=getDatabase(app);
+
+    // استرجاع إعدادات الثيم والخط
+    onValue(ref(db,'settings/theme'), s=>{
+      if(!s.exists()) return;
+      const v=s.val();
+      document.documentElement.dataset.theme = v.mode||localStorage.getItem('themeMode')||'dark';
+      document.documentElement.style.setProperty('--font', `'${v.font||'Tajawal'}', system-ui, Arial`);
+      document.documentElement.style.setProperty('--primary', v.primary||'#1f3bff');
+      document.documentElement.style.setProperty('--accent', v.accent||'#a7b8ff');
+    });
+
+    // زر تبديل النمط
+    const toggleBtn = document.getElementById('toggleMode');
+    toggleBtn.onclick = ()=>{
+      const cur = document.documentElement.dataset.theme==='light'?'dark':'light';
+      document.documentElement.dataset.theme = cur;
+      localStorage.setItem('themeMode',cur);
+    };
+
+    // الروابط السريعة
+    onValue(ref(db,'links'), snap=>{
+      const box=document.getElementById('quickLinks'); box.innerHTML='';
+      if(!snap.exists()){
+        const defaults=[
+          {name:"جدول القطاع",url:"#",icon:"sheet",order:1},
+          {name:"حجز الإجازات",url:"#",icon:"form",order:2},
+          {name:"تبديل المناوبات",url:"#",icon:"swap",order:3},
+          {name:"التشييك اليومي",url:"#",icon:"check",order:4},
+          {name:"الاقتراحات",url:"#",icon:"ideas",order:5}
+        ]; defaults.forEach(d=>set(push(ref(db,'links')),{...d,date:new Date().toISOString()})); return;
+      }
+      const links = Object.values(snap.val()).sort((a,b)=>(a.order||999)-(b.order||999));
+      for(const it of links){
+        const a=document.createElement('a'); a.href=it.url; a.target="_blank";
+        a.innerHTML=`<span class="ico">${linkIcon(it.icon||'link')}</span> ${it.name}`; box.appendChild(a);
+      }
+    });
+
+    // لوحات الشرف
+    function honorCard(h){
+      const map={'royal':'honor honor--royal glow','gold':'honor honor--gold glow','silver':'honor honor--silver glow','platinum':'honor honor--platinum glow','obsidian':'honor honor--obsidian glow','panorama':'honor honor--panorama glow','mesh':'honor honor--mesh glow','glass':'honor honor--glass glow','neon':'honor honor--neon glow'};
+      const cls=map[h.style||'royal']||map.royal;
+      const img = h.imgURL ? `<img src="${h.imgURL}" alt="" style="width:64px;height:64px;border-radius:12px;object-fit:cover;border:1px solid #ffffff22">` : '';
+      return `<div class="${cls}"><div class="sheen"></div>${iconSVG(h.iconName||'trophy')} ${img}
+        <div class="h-title">${h.title||''}</div><div class="h-meta">${h.category||''}${h.center?(' • المركز: '+h.center):''}</div>
+        <div class="h-names">${(h.members||'').replaceAll('\n','<br>')}</div></div>`;
+    }
+    onValue(ref(db,'honor'), s=>{
+      const host=document.getElementById('honorsContainer'); host.innerHTML='';
+      const arr=s.exists()?Object.values(s.val()).sort((a,b)=>(b.date||'').localeCompare(a.date||'')):[];
+      if(!arr.length){ document.getElementById('honorsSec').classList.add('hidden'); return; }
+      document.getElementById('honorsSec').classList.remove('hidden'); host.innerHTML = arr.map(honorCard).join('');
+    });
+
+    // الإعلانات
+    onValue(ref(db,'ads'), snap=>{
+      const sec=document.getElementById('adsSec'); const ul=document.getElementById('adsTicker'); ul.innerHTML='';
+      if(!snap.exists()){ sec.classList.add('hidden'); return; }
+      const list=Object.values(snap.val()).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+      if(!list.length){ sec.classList.add('hidden'); return; }
+      sec.classList.remove('hidden');
+      list.forEach(it=>{ const li=document.createElement('li'); li.textContent = `${it.title} — ${it.desc}`; ul.appendChild(li); });
+    });
+  </script>
+</body>
+</html>
