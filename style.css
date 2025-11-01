@@ -91,3 +91,16 @@ h3{margin:.2rem 0 12px}
 html[data-theme='light'] body{background:radial-gradient(1200px 700px at -20% -10%, #dfe6ff 0, #eef2ff 55%);color:#0b122b}
 html[data-theme='light'] .card{background:linear-gradient(180deg,#ffffffee,#f6f8ff);border-color:#dbe4ff}
 html[data-theme='light'] .quick a{background:linear-gradient(180deg,#f7f8ff,#eef2ff)}
+button, .quick-link {
+  color: var(--text);
+  background-color: var(--primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+button:hover, .quick-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
