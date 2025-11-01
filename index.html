@@ -96,6 +96,18 @@
       sec.classList.remove('hidden');
       list.forEach(it=>{ const li=document.createElement('li'); li.textContent = `${it.title} — ${it.desc}`; ul.appendChild(li); });
     });
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  // تحميل الإعدادات المخزّنة من لوحة التحكم
+  const theme = localStorage.getItem("theme");
+  const font = localStorage.getItem("font");
+  const primaryColor = localStorage.getItem("primaryColor");
+
+  if (theme) document.documentElement.setAttribute("data-theme", theme);
+  if (font) document.body.style.fontFamily = font;
+  if (primaryColor) document.documentElement.style.setProperty("--primary", primaryColor);
+});
   </script>
 </body>
 </html>
