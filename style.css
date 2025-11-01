@@ -1,5 +1,23 @@
 @import url('fonts.css');
-:root{
+:root {
+  --primary: #0048ba;
+  --bg: #f8f9fc;
+  --text: #222;
+}
+
+/* النمط الداكن */
+[data-theme="dark"] {
+  --bg: #0b0d17;
+  --text: #fff;
+  --primary: #2196f3;
+}
+
+/* ثيم أزرق ملكي */
+[data-theme="royal"] {
+  --bg: #0a0f3c;
+  --text: #fff;
+  --primary: #1e90ff;
+}
   --primary:#1f3bff; --accent:#a7b8ff; --bg:#0a1024; --text:#eaf0ff; --muted:#aab6e6; --ring:#ffffff22;
   --card1:#0f1738ee; --card2:#0f1738cc; --font:'Tajawal', system-ui, Arial;
 }
